@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Card, Modal } from "react-bootstrap";
 import DeleteBookModal from "../delete-book-modal";
+import UpdateBookModal from "../update-book-modal";
 
 /**
  * @typedef BookCardProps
@@ -14,6 +15,7 @@ const BookCard = ({
   id = "",
 }) => {
   const [isModalDeleteShow, setIsModalDeleteShow] = useState(false);
+  const [isModalUpdateShow, setIsModalUpdateShow] = useState(false);
 
   return (
     <>
@@ -21,6 +23,15 @@ const BookCard = ({
         id={id}
         open={isModalDeleteShow}
         onClose={() => setIsModalDeleteShow(false)}
+      />
+      <UpdateBookModal
+        book={{
+          id,
+          title,
+          author,
+        }}
+        open={isModalUpdateShow}
+        onClose={() => setIsModalUpdateShow(false)}
       />
       <Card className="mb-3">
         <Card.Body>
@@ -45,7 +56,7 @@ const BookCard = ({
           <Button
             variant="primary"
             className="ms-2"
-            onClick={() => onClickDelete(id)}
+            onClick={() => setIsModalUpdateShow(true)}
           >
             Update
           </Button>

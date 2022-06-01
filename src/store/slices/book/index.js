@@ -25,6 +25,13 @@ import { nanoid } from "nanoid";
  */
 
 /**
+ * @typedef UpdateBookPayload
+ * @property {string} id
+ * @property {string} title
+ * @property {string} author
+ */
+
+/**
  * @type {BookStore}
  */
 const initialState = {
@@ -56,7 +63,7 @@ const bookSlice = createSlice({
     },
     /**
      * @param {BookStore} store
-     * @param {import('@reduxjs/toolkit').PayloadAction<DeleteBookPayload} action
+     * @param {import('@reduxjs/toolkit').PayloadAction<DeleteBookPayload>} action
      */
     delete: (store, action) => {
       const index = store.list.findIndex(
@@ -64,6 +71,17 @@ const bookSlice = createSlice({
       );
 
       if (index >= 0) store.list.splice(index, 1);
+    },
+    /**
+     * @param {BookStore} store
+     * @param {import('@reduxjs/toolkit').PayloadAction<UpdateBookPayload>} action
+     */
+    update: (store, action) => {
+      const index = store.list.findIndex(
+        (book) => book.id === action.payload.id
+      );
+
+      if (index >= 0) store.list[index] = action.payload;
     },
   },
 });
