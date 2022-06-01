@@ -14,6 +14,12 @@ import { nanoid } from "nanoid";
  */
 
 /**
+ * @typedef StoreBookPayload
+ * @property {string} title
+ * @property {string} author
+ */
+
+/**
  * @type {BookStore}
  */
 const initialState = {
@@ -29,6 +35,21 @@ const initialState = {
 const bookSlice = createSlice({
   name: "book",
   initialState,
+  reducers: {
+    /**
+     * @param {BookStore} store
+     * @param {import("@reduxjs/toolkit").PayloadAction<StoreBookPayload>} action
+     */
+    store: (store, action) => {
+      const newBook = {
+        id: nanoid(),
+        title: action.payload.title,
+        author: action.payload.author,
+      };
+
+      store.list.unshift(newBook);
+    },
+  },
 });
 
 export default bookSlice;

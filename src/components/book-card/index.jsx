@@ -1,6 +1,11 @@
 import React from "react";
 import { Button, Card } from "react-bootstrap";
 
+/**
+ * @typedef BookCardProps
+ * @property {string} title
+ */
+
 const BookCard = ({
   title = "",
   author = "",
