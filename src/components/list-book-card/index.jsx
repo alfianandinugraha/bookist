@@ -1,9 +1,16 @@
 import React from "react";
 import BookCard from "@/components/book-card";
-import { shallowEqual, useSelector } from "react-redux";
+import { useSelector, shallowEqual } from "react-redux";
+import equal from "fast-deep-equal";
 
 const ListBookCard = () => {
-  const books = useSelector((value) => value.book.list, shallowEqual);
+  /**
+   * shallowEqual still causing recreate for array and nested object
+   */
+  // const books = useSelector((value) => value.book.list, shallowEqual);
+  const books = useSelector((value) => value.book.list, equal);
+
+  console.log("[rerender]", "ListBookCard");
 
   return (
     <div>
@@ -14,8 +21,6 @@ const ListBookCard = () => {
             id={book.id}
             title={book.title}
             author={book.author}
-            onClickDelete={() => {}}
-            onClickUpdate={() => {}}
           />
         );
       })}

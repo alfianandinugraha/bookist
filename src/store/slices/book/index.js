@@ -32,6 +32,11 @@ import { nanoid } from "nanoid";
  */
 
 /**
+ * @typedef RefreshBookPayload
+ * @property {Book[]} list
+ */
+
+/**
  * @type {BookStore}
  */
 const initialState = {
@@ -82,6 +87,21 @@ const bookSlice = createSlice({
       );
 
       if (index >= 0) store.list[index] = action.payload;
+    },
+    /**
+     * @param {BookStore} store
+     * @param {import('@reduxjs/toolkit').PayloadAction<RefreshBookPayload>} action
+     *
+     * @description used for trigger rerender with equal or shallowEqual
+     */
+    refresh: (store) => {
+      store.list = [
+        {
+          id: "eyU8Q_hJNMJgTa6oF09BL",
+          title: "Learn the basic redux",
+          author: "Robert",
+        },
+      ];
     },
   },
 });
